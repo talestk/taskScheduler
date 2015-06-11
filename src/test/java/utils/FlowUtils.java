@@ -81,15 +81,35 @@ public class FlowUtils {
 	public void addSamples(String samplesXpath) {
 		driver.findElement(By.xpath(ADD_SAMPLES_BUTTON_XPATH)).click();
 		By createSamplesButton = By.id("addsamplesdialog:autoCreateSamplesButton");
-		waitForElementToBeVisible(createSamplesButton, 3);
+		waitForElementToBeVisible(createSamplesButton, 5);
 		driver.findElement(createSamplesButton).click();
-		By selectFilesButton = By.id("fileselector:next_server");
-		waitForElementToBeReady(selectFilesButton, 3);
+		By selectFilesButton = By.id("fileselector:next");
+		waitForElementToBeReady(selectFilesButton, 5);
 		driver.findElement(By.xpath(samplesXpath)).click();
 		driver.findElement(selectFilesButton).click();
 		waitForElementToBeReady(By.id("sampleManagement"), 5);
 		driver.findElement(By.linkText("Analyses")).click();
-		waitForElementToBeVisible(By.id("analysesView"), 3);
+		waitForElementToBeVisible(By.id("analysesView"), 5);
+	}
+
+	/**
+	 * This will add attributes to samples from a project
+	 * the attributes must be in a txt file
+	 * @param samplesInfoXpath the xpath for the desired samples to be added to the project
+	 */
+	public void addSamplesAttributes(String samplesInfoXpath) {
+		driver.findElement(By.linkText("Data")).click();
+		driver.findElement(By.id("sampleManagement:assignSampleattrFromfileButton")).click();
+		By selectFilesButton = By.id("fileselector:selectSampleInfoFile");
+		waitForElementToBeReady(selectFilesButton, 5);
+		driver.findElement(By.xpath(samplesInfoXpath)).click();
+		driver.findElement(selectFilesButton).click();
+		By finishButtonBy = By.id("importAttributes:next");
+		waitForElementToBeReady(finishButtonBy, 5);
+		driver.findElement(finishButtonBy).click();
+		waitForElementToBeReady(By.id("sampleManagement"), 5);
+		driver.findElement(By.linkText("Analyses")).click();
+		waitForElementToBeVisible(By.id("analysesView"), 5);
 	}
 
 	/**
@@ -105,7 +125,7 @@ public class FlowUtils {
 		driver.findElement(By.linkText("Data")).click();
 		// we have refresh because the add member input suggests names and leaves the div on the screen
 		driver.navigate().refresh();
-		waitForElementToBeVisible(By.id("sampleManagement"), 3);
+		waitForElementToBeVisible(By.id("sampleManagement"), 5);
 	}
 
 	/**
@@ -123,11 +143,9 @@ public class FlowUtils {
 		waitForElementToBeReady(By.id("project-tabs"), 3);
 	}
 
-	public void gotToExistingProject() throws InterruptedException {
-		driver.findElement(By.id("homepage:filterProjectsOption")).click();
-		driver.findElement(By.xpath(PROJECT_MENU)).click();
-		Thread.sleep(250); // lag for menu to pop up
-		driver.findElement(By.xpath(DELETE_PROJECT_LINK)).click();
-		waitForElementToBeReady(By.id("project-tabs"), 3);
+	public void goToExistingProject(String projectName) throws InterruptedException {
+		Thread.sleep(2000);
+		driver.findElement(By.linkText(projectName)).click();
+		waitForElementToBeReady(By.id("project-tabs"), 10);
 	}
 }

@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Random;
 
 public class UnalignedReadsTasks {
+	private static final Random RANDOM = new Random();
+
 	//Aligners
 	public static class Aligners {
 		public static final String BOWTIE = "Bowtie";
@@ -18,7 +20,7 @@ public class UnalignedReadsTasks {
 		public static final String TOPHAT_2 = "TopHat 2";
 		public static final List<String> listOfAll = Arrays.asList(BOWTIE, BOWTIE_2, BWA, GSNAP, SHRIMP_2, STAR, TMAP, TOPHAT, TOPHAT_2);
 		public static String getRandom() {
-			int index = new Random().nextInt(listOfAll.size());
+			int index = RANDOM.nextInt(listOfAll.size());
 			return listOfAll.get(index);
 		}
 	}
@@ -29,7 +31,7 @@ public class UnalignedReadsTasks {
 		public static final String ERCC = "ERCC (Bowtie)";
 		public static final List<String> listOfAll = Arrays.asList(PRE_QAQC, ERCC);
 		public static String getRandom() {
-			int index = new Random().nextInt(listOfAll.size());
+			int index = RANDOM.nextInt(listOfAll.size());
 			return listOfAll.get(index);
 		}
 	}
@@ -39,9 +41,9 @@ public class UnalignedReadsTasks {
 		public static final String TRIM_BASES = "Trim bases";
 		public static final String TRIM_ADAPTERS = "Trim adapters";
 		public static final String SUB_SAMPLE = "Subsample FASTQ";
-		public static final List<String> listOfAll = Arrays.asList(TRIM_BASES, TRIM_ADAPTERS, SUB_SAMPLE);
+		public static final List<String> listOfAll = Arrays.asList(TRIM_BASES, SUB_SAMPLE);
 		public static String getRandom() {
-			int index = new Random().nextInt(listOfAll.size());
+			int index = RANDOM.nextInt(listOfAll.size());
 			return listOfAll.get(index);
 		}
 	}
